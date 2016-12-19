@@ -14,8 +14,8 @@ import (
 const defaultport int = 80
 const portprefix string = ":"
 
-var mux map[string]func(http.ResponseWriter, *http.Request)
 var listeningAddr string = ""
+var mux map[string]func(http.ResponseWriter, *http.Request)
 
 // Stampa il messaggio di benvenuto e la lista dei comandi
 func welcomeMessage() {
@@ -24,7 +24,7 @@ func welcomeMessage() {
 	println("Questo software avvia un server-web sulla porta desiderata e rimane in attesa di comandi.")
 	println("")
 	println("COMANDI DISPONIBILI: ")
-	println("quit - Arresta il webserver ed esce. DA IMPLEMENTARE!")
+	println("/quitserver - Arresta il webserver ed esce.")
 	println("help - Stampa la guida. DA IMPLEMENTARE!")
 	println("")
 }
@@ -90,25 +90,35 @@ func startServer() {
 	fmt.Println("")
 	fmt.Println("Imposto il server sulla porta ", listeningAddr, "... OK")
 	fmt.Println("")
+
 	server := http.Server{
 		Addr:    listeningAddr,
 		Handler: &myHandler{},
 	}
-	
+
 	fmt.Println("")
 	fmt.Println("Creazione funzionalità disponibili...")
-		
+
 	mux = make(map[string]func(http.ResponseWriter, *http.Request))
+
 	mux["/"] = hello
+	//Per ogni coppia di valori Stringa nomefunzione creare una funzione che gestisca w http.ResponseWriter, r *http.Request
+	//
+	// Es con nomefunzione = "hello":
+	// func hello(w http.ResponseWriter, r *http.Request) {
+	// 		io.WriteString(w, "Hello world!")
+	//}
+	
 	mux["/mario"] = mario
 	mux["/GET"] = get
 	mux["/quitserver"] = quitserver
 	
-	fmt.Println("...OK")
+	fmt.Println(".....................................OK")
 	fmt.Println("")
 	
 	fmt.Println("Server in ascolto ai seguenti indirizzi")
 	indirizziDisponibili()
+
 	server.ListenAndServe()
 	
 	//listenForCommands()
