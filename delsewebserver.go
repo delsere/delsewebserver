@@ -110,7 +110,7 @@ func startServer() {
 	//}
 	
 	mux["/mario"] = mario
-	mux["/GET"] = get
+	mux["/getter"] = get
 	mux["/quitserver"] = quitserver
 	
 	fmt.Println(".....................................OK")
@@ -170,11 +170,22 @@ func indirizziDisponibili() {
 	}	
 }
 
+func inputparameters() {
+	//programmaEParametri := os.Args
+    parametri := os.Args[1:]
+	
+	if len(parametri) != 0 {
+		//Controllare ed impostare i parametri
+		fmt.Println(parametri)
+	} else {
+		fmt.Println("Nessun parametro di input!")
+	}
+}
+
 func main() {
+	inputparameters()
 	welcomeMessage()
-	
 	askAndTestListeningPort()
-	
 	startServer()
 	
 	//dopo lo startServer non fa niente...
