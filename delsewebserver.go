@@ -17,7 +17,7 @@ const portprefix string = ":"
 var mux map[string]func(http.ResponseWriter, *http.Request)
 var listeningAddr string = ""
 
-// Stampa
+// Stampa il messaggio di benvenuto e la lista dei comandi
 func welcomeMessage() {
 	println("[delsewebserver]")
 	println("")
@@ -167,8 +167,8 @@ func main() {
 	
 	startServer()
 	
-	fmt.Println("listenForCommands")
-	listenForCommands()
-	fmt.Println("listenForCommands end")
-	
+	//dopo lo startServer non fa niente...
+	//fmt.Println("listenForCommands")
+	//listenForCommands()
+	//fmt.Println("listenForCommands end")
 }
